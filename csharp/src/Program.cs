@@ -14,12 +14,40 @@ namespace SudokuSolver
 				Console.Out.WriteLine("Use dots for empty spaces, e.g. 12..5.78.");
 				return;
 			}
-			Puzzle(args[0]);
+
+			var puzzle = Puzzle(args[0]).ToArray();
+			bool changed;
+			do
+			{
+				changed = false;
+				for (int i = 0; i < puzzle.Length; i++)
+				{
+					if (puzzle[i] == -1)
+					{
+						var possibilities = Possibilities(Row(puzzle, i), Column(puzzle, i), Square(puzzle, i));
+						if (possibilities.Count() == 1)
+						{
+							puzzle[i] = possibilities.First();
+							changed = true;
+						}
+					}
+				}
+			} while (changed);
+
+			DrawPuzzle(puzzle);
 		}
 
 		public static IEnumerable<int> Puzzle(string input)
 		{
 			return input.ToCharArray(0, 81).Select(c => (c == '.' ? -1 : int.Parse(c + "")));
+		}
+
+		private static void DrawPuzzle(IEnumerable<int> puzzle)
+		{
+			for (int i = 0; i < 9; i++)
+			{
+				Console.Out.WriteLine(string.Join(" ", puzzle.Skip(i * 9).Take(9).ToArray().Select(c => (c == -1 ? "." : c.ToString()))));
+			}
 		}
 
 		public static IEnumerable<int> Row(IEnumerable<int> puzzle, int index)
