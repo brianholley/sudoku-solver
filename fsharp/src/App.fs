@@ -1,5 +1,11 @@
-﻿// Learn more about F# at http://fsharp.net
-// See the 'F# Tutorial' project for more help.
+﻿open System
+
+let puzzle (input:string) = 
+    input.ToCharArray(0, 81) |> Seq.map (fun c -> 
+        match c with
+        | '.' -> -1
+        | c when char.IsDigit c -> int c - int '0'
+        | _ -> -1)
 
 [<EntryPoint>]
 let main argv = 

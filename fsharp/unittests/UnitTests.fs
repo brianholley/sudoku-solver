@@ -1,5 +1,9 @@
-﻿// Learn more about F# at http://fsharp.net
-// See the 'F# Tutorial' project for more help.
+﻿
+
+let testFunction fn name word expected =
+    let actual = fn word
+    let equal = (actual = expected)
+    printfn "%s: %s (Word=%s Expected=%s Actual=%s)" (if equal then "PASS" else "FAIL") name word expected actual
 
 [<EntryPoint>]
 let main argv = 
