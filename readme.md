@@ -6,6 +6,7 @@ These basic sudoku solvers are a testing a learning ground for me to pick up new
 
 * C# - Trying out a little bit more functional approach to a basic solver
 * F# - Learning (in progress)
+* Go - Learning (attempting first idiomatic pass)
 
 ## Pending languages
 
