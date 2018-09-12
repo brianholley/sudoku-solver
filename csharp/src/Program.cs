@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SudokuSolver
+namespace Wavecrash.Solver
 {
 	public class Program
 	{
@@ -10,7 +10,7 @@ namespace SudokuSolver
 		{
 			if (args.Length != 1)
 			{
-				Console.Out.WriteLine("Usage: sodoku-solver-csharp <puzzle>");
+				Console.Out.WriteLine("Usage: solver <puzzle>");
 				Console.Out.WriteLine("Use dots for empty spaces, e.g. 12..5.78.");
 				return;
 			}

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SudokuSolver
+namespace Wavecrash.Solver
 {
 	public class Puzzle
 	{
