@@ -56,17 +56,21 @@ namespace Wavecrash.Solver
 
         private static bool CheckTwoPossibilitiesConstraint(List<int> possibilities, List<GridSquare> constraints)
         {
+			bool progress = false;
             var matches = constraints.Where(s => s.Possibilities.SequenceEqual(possibilities));
             if (matches.Count() > 1)
             {
                 constraints.Where(s => !s.Possibilities.SequenceEqual(possibilities)).ToList().ForEach(s =>
                 {
-                    s.Possibilities.Remove(possibilities[0]);
-                    s.Possibilities.Remove(possibilities[1]);
+					if (s.Possibilities.Intersect(possibilities).Any())
+					{
+						progress = true;
+						s.Possibilities.Remove(possibilities[0]);
+						s.Possibilities.Remove(possibilities[1]);
+					}
                 });
-            	return true;
             }
-			return false;
+			return progress;
         }
     }
 }
