@@ -13,7 +13,7 @@ namespace Wavecrash.Solver.Tests
 		{
 			var puzzle = Puzzle.ParsePuzzle(new string('1', 81));
 			Assert.NotNull(puzzle);
-			Assert.Equal(1, puzzle.Squares[0]);
+			Assert.Equal(1, puzzle.Get(0).Value);
 		}
 
 		[Fact]
@@ -47,8 +47,8 @@ namespace Wavecrash.Solver.Tests
 		public void Puzzle_ValidIncomplete()
 		{
 			var puzzle = Puzzle.ParsePuzzle(".19.6..343.8.51...64...3.......194..47.8.5.19..564.......5...68...17.9.398..3.57.");
-			Assert.Equal(-1, puzzle.Squares[0]);
-			Assert.Equal(9, puzzle.Squares[2]);
+			Assert.Equal(-1, puzzle.Get(0).Value);
+			Assert.Equal(9, puzzle.Get(2).Value);
 		}
 
 		[Fact]
@@ -56,7 +56,7 @@ namespace Wavecrash.Solver.Tests
 		{
 			var puzzle = Puzzle.ParsePuzzle(".19.6..343.8.51...64...3.......194..47.8.5.19..564.......5...68...17.9.398..3.57.");
 			var row = puzzle.Row(0);
-			Assert.True(new int[] {-1, 1, 9, -1, 6, -1, -1, 3, 4}.SequenceEqual(row.ToArray()));
+			Assert.True(new int[] {-1, 1, 9, -1, 6, -1, -1, 3, 4}.SequenceEqual(row.Select(s => s.Value).ToArray()));
 		}
 
 		[Fact]
@@ -64,7 +64,7 @@ namespace Wavecrash.Solver.Tests
 		{
 			var puzzle = Puzzle.ParsePuzzle(".19.6..343.8.51...64...3.......194..47.8.5.19..564.......5...68...17.9.398..3.57.");
 			var row = puzzle.Row(14);
-			Assert.True(new int[] {3, -1, 8, -1, 5, 1, -1, -1, -1}.SequenceEqual(row.ToArray()));
+			Assert.True(new int[] {3, -1, 8, -1, 5, 1, -1, -1, -1}.SequenceEqual(row.Select(s => s.Value).ToArray()));
 		}
 
 		[Fact]
@@ -72,7 +72,7 @@ namespace Wavecrash.Solver.Tests
 		{
 			var puzzle = Puzzle.ParsePuzzle(".19.6..343.8.51...64...3.......194..47.8.5.19..564.......5...68...17.9.398..3.57.");
 			var column = puzzle.Column(1);
-			Assert.True(new int[] {1, -1, 4, -1, 7, -1, -1, -1, 8}.SequenceEqual(column.ToArray()));
+			Assert.True(new int[] {1, -1, 4, -1, 7, -1, -1, -1, 8}.SequenceEqual(column.Select(s => s.Value).ToArray()));
 		}
 
 		[Fact]
@@ -80,7 +80,7 @@ namespace Wavecrash.Solver.Tests
 		{
 			var puzzle = Puzzle.ParsePuzzle(".19.6..343.8.51...64...3.......194..47.8.5.19..564.......5...68...17.9.398..3.57.");
 			var square = puzzle.Square(1);
-			Assert.True(new int[] {-1, 1, 9, 3, -1, 8, 6, 4, -1}.SequenceEqual(square.ToArray()));
+			Assert.True(new int[] {-1, 1, 9, 3, -1, 8, 6, 4, -1}.SequenceEqual(square.Select(s => s.Value).ToArray()));
 		}
 
 		[Fact]
