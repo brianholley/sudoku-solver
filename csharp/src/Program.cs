@@ -16,20 +16,23 @@ namespace Wavecrash.Solver
 			}
 
 			var puzzle = Puzzle.ParsePuzzle(args[0]);
-			bool changed;
-			do
+			while (puzzle.Remaining > 0)
 			{
-				changed = false;
+				int remaining = puzzle.Remaining;
 				for (int i = 0; i < 81; i++)
 				{
 					var square = puzzle.Get(i);
 					if (square.Value == -1 && square.Possibilities.Count() == 1)
 					{
 						puzzle.Set(i, square.Possibilities.First());
-						changed = true;
 					}
 				}
-			} while (changed);
+				if (remaining == puzzle.Remaining)
+				{
+					Console.Out.WriteLine("Puzzle is stuck");
+					break;
+				}
+			}
 
 			Console.Out.WriteLine(puzzle);
 		}

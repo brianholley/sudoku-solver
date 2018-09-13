@@ -40,13 +40,14 @@ namespace Wavecrash.Solver
 		public void Set(int index, int value) 
 		{
 			_squares[index].Value = value;
+			Remaining--;
 
 			Row(index).ForEach(s => s.Possibilities.Remove(value));
 			Column(index).ForEach(s => s.Possibilities.Remove(value));
 			Square(index).ForEach(s => s.Possibilities.Remove(value));
 		}
 
-		public int Remaining { get; } = 81;
+		public int Remaining { get; private set; } = 81;
 
 		public override string ToString()
 		{
@@ -80,6 +81,9 @@ namespace Wavecrash.Solver
 
 		private List<int> RecalcPossibilities(int index)
 		{
+			if (Get(index).Value != -1)
+				return new List<int>();
+
 			return Possibilities(
 				Row(index).Where(s => s.Value != -1).Select(s => s.Value), 
 				Column(index).Where(s => s.Value != -1).Select(s => s.Value), 
