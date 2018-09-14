@@ -10,6 +10,8 @@ namespace Wavecrash.Solver.Tests
 	{
 		private const string EasyPuzzle = ".19.6..343.8.51...64...3.......194..47.8.5.19..564.......5...68...17.9.398..3.57.";
 		private const string MediumPuzzle = ".5....6.2....3..9..9..8675........2956..7..4328........2679..1..4..6....3.7....6.";
+		private const string HardPuzzle = ".....4.3......9.67.3.7...857..9......53.7.61......5..226...8.4.87.5......1.4.....";
+
 		[Fact]
 		public void Puzzle_Filler()
 		{

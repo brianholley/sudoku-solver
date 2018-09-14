@@ -37,14 +37,23 @@ namespace Wavecrash.Solver
                         }
                         if (square.Possibilities.Count() == 2)
                         {
-                            if (CheckTwoPossibilitiesConstraint(square.Possibilities, puzzle.Row(i)))
+                            if (ApplyTwoPossibilitiesConstraint(square.Possibilities, puzzle.Row(i)))
 								progress = true;
-                            if (CheckTwoPossibilitiesConstraint(square.Possibilities, puzzle.Column(i)))
+                            if (ApplyTwoPossibilitiesConstraint(square.Possibilities, puzzle.Column(i)))
 								progress = true;
-                            if (CheckTwoPossibilitiesConstraint(square.Possibilities, puzzle.Square(i)))
+                            if (ApplyTwoPossibilitiesConstraint(square.Possibilities, puzzle.Square(i)))
 								progress = true;
                         }
                     }
+                }
+                for (int i = 0; i < 9; i++)
+                {
+                    if (ApplyOnlyOpenPlaceConstraint(puzzle.Row(i * 9)))
+                        progress = true;
+                    if (ApplyOnlyOpenPlaceConstraint(puzzle.Column(i)))
+                        progress = true;
+                    if (ApplyOnlyOpenPlaceConstraint(puzzle.Square((i / 3) * 27 + (i % 3) * 3)))
+                        progress = true;
                 }
                 if (remaining == puzzle.Remaining && !progress)
                 {
@@ -54,7 +63,9 @@ namespace Wavecrash.Solver
             }
         }
 
-        private static bool CheckTwoPossibilitiesConstraint(List<int> possibilities, List<GridSquare> constraints)
+		// This constraint is that there are two squares which have the same 
+		// two possibilities, therefore no other square can be one of those two values
+        private static bool ApplyTwoPossibilitiesConstraint(List<int> possibilities, List<GridSquare> constraints)
         {
 			bool progress = false;
             var matches = constraints.Where(s => s.Possibilities.SequenceEqual(possibilities));
@@ -72,5 +83,26 @@ namespace Wavecrash.Solver
             }
 			return progress;
         }
+
+		// This constraint is that there is only one open place in the 
+		// row/column/square that can contain a value
+		private static bool ApplyOnlyOpenPlaceConstraint(List<GridSquare> constraints)
+        {
+            bool progress = true;
+            var counts = new int[10];
+            constraints.ForEach(c => 
+            {
+                c.Possibilities.ForEach(p => counts[p]++);
+            });
+            for (int i=1; i < counts.Length; i++)
+            {
+                if (counts[i] == 1)
+                {
+                    constraints.First(c => c.Possibilities.Contains(i)).Possibilities = new List<int> { i };
+                    progress = true;
+                }
+            }
+            return progress;
+		}
     }
 }

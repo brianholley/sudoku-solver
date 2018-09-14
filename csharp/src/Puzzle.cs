@@ -40,6 +40,7 @@ namespace Wavecrash.Solver
 		public void Set(int index, int value) 
 		{
 			_squares[index].Value = value;
+			_squares[index].Possibilities.Clear();
 			Remaining--;
 
 			Row(index).ForEach(s => s.Possibilities.Remove(value));
