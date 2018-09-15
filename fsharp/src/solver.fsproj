@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Puzzle.fs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <!-- Program.fs needs to be last since it contains the EntryPoint -->
     <Compile Include="Program.fs" />
   </ItemGroup>
 
