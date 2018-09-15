@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RootNamespace>Wavecrash.Solver</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Puzzle.fs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <!-- Program.fs needs to be last since it contains the EntryPoint -->
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+</Project>
