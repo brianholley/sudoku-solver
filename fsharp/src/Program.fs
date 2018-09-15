@@ -4,7 +4,7 @@ let puzzle (input:string) =
     input.ToCharArray(0, 81) |> Seq.map (fun c -> 
         match c with
         | '.' -> -1
-        | c when char.IsDigit c -> int c - int '0'
+        | c when Char.IsDigit c -> int c - int '0'
         | _ -> -1)
 
 [<EntryPoint>]
