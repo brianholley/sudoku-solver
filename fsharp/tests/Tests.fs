@@ -16,3 +16,30 @@ let TestPuzzleParse () =
     Assert.Equal(-1, puzzle.[0])
     Assert.Equal(9, puzzle.[2])
 
+[<Fact>]
+let TestRow_FirstRow () =
+    let puzzle = Program.parse EasyPuzzle
+    let row = Puzzle.row puzzle 0
+    Assert.Equal([-1; 1; 9; -1; 6; -1; -1; 3; 4].Length, row.Length)
+    Assert.Equal<list<int>>([-1; 1; 9; -1; 6; -1; -1; 3; 4], row)
+
+[<Fact>]
+let TestRow_NonFirstRow () =
+    let puzzle = Program.parse EasyPuzzle
+    let row = Puzzle.row puzzle 14
+    Assert.Equal([3; -1; 8; -1; 5; 1; -1; -1; -1].Length, row.Length)
+    Assert.Equal<list<int>>([3; -1; 8; -1; 5; 1; -1; -1; -1], row)
+
+[<Fact>]
+let TestColumn_FirstColumn () =
+    let puzzle = Program.parse EasyPuzzle
+    let column = Puzzle.column puzzle 1
+    Assert.Equal([1; -1; 4; -1; 7; -1; -1; -1; 8].Length, column.Length)
+    Assert.Equal<list<int>>([1; -1; 4; -1; 7; -1; -1; -1; 8], column)
+
+[<Fact>]
+let TestSquare_FirstSquare () =
+    let puzzle = Program.parse EasyPuzzle
+    let square = Puzzle.square puzzle 1
+    Assert.Equal([-1; 1; 9; 3; -1; 8; 6; 4; -1].Length, square.Length)
+    Assert.Equal<list<int>>([-1; 1; 9; 3; -1; 8; 6; 4; -1], square)
